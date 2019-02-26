@@ -254,30 +254,44 @@ extension MessagesViewController {
         let info = (auth.settings?.messageReadReceiptStoreUsers ?? false) ? UIAlertAction(title: localized("chat.message.actions.info"), style: .default, handler: { _ in
             self.handleReadReceiptPress(message, source: (view, view.frame))
         }) : nil
+        info?.image = UIImage(named: "Info")
+        info?.titleTextAlignment = .left
 
         let react = UIAlertAction(title: localized("chat.message.actions.react"), style: .default, handler: { _ in
             self.react(message: message, view: view)
         })
+        react.image = UIImage(named: "Add Reaction")
+        react.titleTextAlignment = .left
 
         let report = UIAlertAction(title: localized("chat.message.actions.report"), style: .default, handler: { _ in
             self.report(message: message)
         })
+        report.image = UIImage(named: "Report")
+        report.titleTextAlignment = .left
 
         let copy = UIAlertAction(title: localized("chat.message.actions.copy"), style: .default, handler: { _ in
             UIPasteboard.general.string = message.text
         })
+        copy.image = UIImage(named: "Copy")
+        copy.titleTextAlignment = .left
 
         let replyAction = UIAlertAction(title: localized("chat.message.actions.reply"), style: .default, handler: { _ in
             self.reply(to: message)
         })
+        replyAction.image = UIImage(named: "Reply")
+        replyAction.titleTextAlignment = .left
 
         let permalink = UIAlertAction(title: localized("chat.message.actions.permalink"), style: .default, handler: { _ in
             self.subscription?.copyPermalink(messageIdentifier: message.identifier ?? "")
         })
+        permalink.image = UIImage(named: "Permalink")
+        permalink.titleTextAlignment = .left
 
         let quote = UIAlertAction(title: localized("chat.message.actions.quote"), style: .default, handler: { _ in
             self.reply(to: message, onlyQuote: true)
         })
+        quote.image = UIImage(named: "Quote")
+        quote.titleTextAlignment = .left
 
         var actions = [info, react, replyAction, permalink, quote, copy, report].compactMap { $0 }
 
@@ -286,6 +300,8 @@ extension MessagesViewController {
             let pin = UIAlertAction(title: pinMessage, style: .default, handler: { _ in
                 client.pinMessage(message, pin: !message.pinned)
             })
+            pin.image = UIImage(named: "Pin")
+            pin.titleTextAlignment = .left
 
             actions.append(pin)
         }
@@ -296,6 +312,8 @@ extension MessagesViewController {
             let star = UIAlertAction(title: starMessage, style: .default, handler: { _ in
                 client.starMessage(message, star: !isStarred)
             })
+            star.image = UIImage(named: "Star")
+            star.titleTextAlignment = .left
 
             actions.append(star)
         }
@@ -305,6 +323,8 @@ extension MessagesViewController {
                 self.editMessage(message)
                 self.applyTheme()
             })
+            edit.image = UIImage(named: "Edit")
+            edit.titleTextAlignment = .left
 
             actions.append(edit)
         }
@@ -313,6 +333,8 @@ extension MessagesViewController {
             let delete = UIAlertAction(title: localized("chat.message.actions.delete"), style: .destructive, handler: { _ in
                 self.delete(message: message)
             })
+            delete.image = UIImage(named: "Trash")
+            delete.titleTextAlignment = .left
 
             actions.append(delete)
         }

@@ -212,9 +212,9 @@
 "chat.preview.actions.hide" = "Esconder";
 
 // Chat Message Actions
-"chat.message.actions.info" = "Informações da Mensagem";
+"chat.message.actions.info" = "Informações";
 "chat.message.actions.react" = "Adicionar reação";
-"chat.message.actions.report" = "Reportar mensagem";
+"chat.message.actions.report" = "Reportar";
 "chat.message.actions.edit" = "Editar";
 "chat.message.actions.copy" = "Copiar";
 "chat.message.actions.pin" = "Pinar";
@@ -225,7 +225,7 @@
 "chat.message.actions.reply" = "Responder";
 "chat.message.actions.join_video_call" = "Entrar na Ligação";
 "chat.message.actions.permalink" = "Link permanente";
-"chat.message.actions.delete" = "Deletar mensagem";
+"chat.message.actions.delete" = "Deletar";
 "chat.message.actions.delete.confirm.title" = "Deletar esta mensagem?";
 "chat.message.actions.delete.confirm.message" = "Tem certeza que deseja deletar esta mensagem? A mensagem não poderá ser recuperada.";
 "chat.message.actions.delete.confirm.yes" = "Sim, deletar";

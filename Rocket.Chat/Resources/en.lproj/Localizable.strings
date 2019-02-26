@@ -212,9 +212,9 @@
 "chat.read_receipt_list.title.empty" = "Read by no one";
 
 // Chat Message Actions
-"chat.message.actions.info" = "Message info";
+"chat.message.actions.info" = "Info";
 "chat.message.actions.react" = "Add Reaction";
-"chat.message.actions.report" = "Report Message";
+"chat.message.actions.report" = "Report";
 "chat.message.actions.edit" = "Edit";
 "chat.message.actions.copy" = "Copy";
 "chat.message.actions.pin" = "Pin";
@@ -225,7 +225,7 @@
 "chat.message.actions.reply" = "Reply";
 "chat.message.actions.join_video_call" = "Join Video Call";
 "chat.message.actions.permalink" = "Permalink";
-"chat.message.actions.delete" = "Delete message";
+"chat.message.actions.delete" = "Delete";
 "chat.message.actions.delete.confirm.title" = "Delete this message?";
 "chat.message.actions.delete.confirm.message" = "Are you sure you want to delete this message? This process can't be undone.";
 "chat.message.actions.delete.confirm.yes" = "Yes, delete";
