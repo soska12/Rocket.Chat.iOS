@@ -46,7 +46,11 @@ final class EditProfileTableViewController: BaseTableViewController, MediaPicker
         }
     }
 
-    @IBOutlet weak var avatarButton: UIButton!
+    @IBOutlet weak var avatarButton: UIButton! {
+    didSet {
+        avatarButton.accessibilityLabel = avatarButtonAccessibilityLabel
+        }
+    }
 
     var avatarView: AvatarView = {
         let avatarView = AvatarView()
@@ -129,8 +133,8 @@ final class EditProfileTableViewController: BaseTableViewController, MediaPicker
         fetchUserData()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         updateUserStatus()
     }
 
@@ -217,6 +221,7 @@ final class EditProfileTableViewController: BaseTableViewController, MediaPicker
 
         if authSettings?.isAllowedToEditAvatar ?? false {
             avatarButton.setImage(editingAvatarImage, for: .normal)
+            avatarButton.accessibilityLabel = avatarEditingButtonAccessibilityLabel
         }
 
         enableUserInteraction()
@@ -233,6 +238,7 @@ final class EditProfileTableViewController: BaseTableViewController, MediaPicker
 
         if authSettings?.isAllowedToEditAvatar ?? false {
             avatarButton.setImage(nil, for: .normal)
+            avatarButton.accessibilityLabel = avatarButtonAccessibilityLabel
         }
 
         disableUserInteraction()
@@ -275,6 +281,11 @@ final class EditProfileTableViewController: BaseTableViewController, MediaPicker
         username.isEnabled = false
         email.isEnabled = false
     }
+
+    // MARK: Accessibility
+
+    var avatarButtonAccessibilityLabel: String? = VOLocalizedString("preferences.profile.edit.label")
+    var avatarEditingButtonAccessibilityLabel: String? = VOLocalizedString("preferences.profile.editing.label")
 
     // MARK: Actions
 
@@ -337,9 +348,7 @@ final class EditProfileTableViewController: BaseTableViewController, MediaPicker
 
         alert.addTextField(configurationHandler: { textField in
             textField.placeholder = localized("myaccount.settings.profile.password_required.placeholder")
-            if #available(iOS 11.0, *) {
-                textField.textContentType = .password
-            }
+            textField.textContentType = .password
             textField.isSecureTextEntry = true
 
             _ = NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: OperationQueue.main) { _ in
@@ -527,7 +536,7 @@ extension EditProfileTableViewController: UIImagePickerControllerDelegate {
         let filename = String.random()
         var file: FileUpload?
 
-        if let image = info[.originalImage] as? UIImage {
+        if let image = info[.editedImage] as? UIImage {
             file = UploadHelper.file(
                 for: image.compressedForUpload,
                 name: "\(filename.components(separatedBy: ".").first ?? "image").jpeg",

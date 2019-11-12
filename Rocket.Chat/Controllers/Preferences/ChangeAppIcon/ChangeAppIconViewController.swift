@@ -28,16 +28,12 @@ final class ChangeAppIconViewController: BaseViewController {
     private func changeIcon(name: String) {
         let iconName = name == "Default" ? nil : name
 
-        if #available(iOS 10.3, *) {
-            UIApplication.shared.setAlternateIconName(iconName) { error in
-                if let error = error {
-                    self.reportError(message: (error as NSError).localizedDescription)
-                }
-
-                self.collectionView.reloadData()
+        UIApplication.shared.setAlternateIconName(iconName) { error in
+            if let error = error {
+                self.reportError(message: (error as NSError).localizedDescription)
             }
-        } else {
-            reportError(message: viewModel.iosVersionMessage)
+
+            self.collectionView.reloadData()
         }
     }
 
@@ -65,18 +61,16 @@ extension ChangeAppIconViewController: UICollectionViewDataSource {
             fatalError("Could not dequeue reuable cell as ChangeAppIconCell")
         }
 
-        let iconName = viewModel.availableIcons[indexPath.row]
+        let icon = viewModel.availableIcons[indexPath.row]
 
         var isSelected = false
-        if #available(iOS 10.3, *) {
-            if let selectedIcon = UIApplication.shared.alternateIconName {
-                isSelected = iconName == selectedIcon
-            } else {
-                isSelected = indexPath.row == 0
-            }
+        if let selectedIcon = UIApplication.shared.alternateIconName {
+            isSelected = icon.iconName == selectedIcon
+        } else {
+            isSelected = indexPath.row == 0
         }
 
-        cell.setIcon(name: iconName, selected: isSelected)
+        cell.setIcon(name: icon, selected: isSelected)
         return cell
     }
 
@@ -108,7 +102,7 @@ extension ChangeAppIconViewController: UICollectionViewDelegateFlowLayout {
 extension ChangeAppIconViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        changeIcon(name: viewModel.availableIcons[indexPath.row])
+        changeIcon(name: viewModel.availableIcons[indexPath.row].iconName)
     }
 
 }
